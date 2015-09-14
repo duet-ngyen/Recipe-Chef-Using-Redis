@@ -1,5 +1,5 @@
 <div style="margin-top: 50px"></div>
-<%= link_to "Recipe 1", new_recipe_path, class: "btn btn-primary" %>
+<%= link_to "Create new recipe", new_recipe_path, class: "btn btn-primary" %>
 
 <h1>all chefs</h1>
 <% chefs = $redis.smembers("chefs") %>
