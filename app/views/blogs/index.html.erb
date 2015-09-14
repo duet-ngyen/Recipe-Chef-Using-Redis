@@ -1,0 +1,47 @@
+<h1>all chefs</h1>
+<% chefs = $redis.smembers("chefs") %>
+<table class="table table-hover table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Recipes</th>
+  </tr>
+  <% chefs.each do |chef| %>
+    <% name_chef =  $redis.hget(chef, "name") %>
+    <% recipes_chef = $redis.smembers("#{chef}:recipes") %>
+    <tr>
+      <td><%= name_chef %></td>
+      <td><%= $redis.hget(chef, "email") %></td>
+      <td>
+        <ul>
+          <% recipes_chef.each do |recipe| %>
+            <% if $redis.hget("recipe:#{recipe}", "title") %>
+              <hr>
+              <li><h4><strong><%= $redis.hget("recipe:#{recipe}", "title") %></strong></h4></li>
+              <li><p><em><%= $redis.hget("recipe:#{recipe}", "summary") %></em></p></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
+    <%= %>
+  <% end %>
+</table>
+
+<h1>All recipes</h1>
+<% recipes = $redis.smembers("recipes") %>
+
+
+<table class="table table-hover">
+  <tr>
+    <th>Title</th>
+    <th>Summary</th>
+  </tr>
+  <% recipes.each do |recipe| %>
+    <tr>
+      <td><%= $redis.hget(recipe, "title") %></td>
+      <td><%= $redis.hget(recipe, "summary") %></td>
+    </tr>
+    <%= %>
+  <% end %>
+</table>
