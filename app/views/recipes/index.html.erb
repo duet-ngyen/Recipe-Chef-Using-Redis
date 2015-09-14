@@ -1,10 +1,13 @@
 <div style="margin-top: 50px"></div>
 <%= link_to "Create new recipe", new_recipe_path, class: "btn btn-primary" %>
-
+<div class="pull-right">
+  <strong>Visited:</strong><span class="tab-left btn btn-success"><%= @count %></span>
+</div>
 <h1>all chefs</h1>
 <% chefs = $redis.smembers("chefs") %>
 <table class="table table-hover table-striped">
   <tr>
+    <th>#</th>
     <th>Name</th>
     <th>Email</th>
     <th>Recipes</th>
@@ -12,6 +15,7 @@
   <% chefs.each do |chef| %>
     <% recipes_chef = $redis.smembers("#{chef}:recipes") %>
     <tr>
+      <td><%= $redis.hget(chef, "id") %></td>
       <td><%= $redis.hget(chef, "name") %></td>
       <td><%= $redis.hget(chef, "email") %></td>
       <td>
@@ -36,11 +40,13 @@
 
 <table class="table table-hover">
   <tr>
+    <th>#</th>
     <th>Title</th>
     <th>Summary</th>
   </tr>
   <% recipes.each do |recipe| %>
     <tr>
+      <td><%= link_to $redis.hget(recipe, "id"), recipe_path($redis.hget(recipe, "id")) %></td>
       <td><%= $redis.hget(recipe, "title") %></td>
       <td><%= $redis.hget(recipe, "summary") %></td>
     </tr>

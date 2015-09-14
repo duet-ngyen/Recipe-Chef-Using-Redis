@@ -1,2 +1,9 @@
 <h1>Blogs#show</h1>
 <p>Find me in app/views/blogs/show.html.erb</p>
+<div class="pull-right">
+  <strong>Visited:</strong><span class="tab-left btn btn-success"><%= @count %></span>
+</div>
+
+<p><%= $redis.hget(@recipe, "id") %></p>
+<p><%= $redis.hget(@recipe, "title") %></p>
+<p><%= $redis.hget(@recipe, "summary") %></p>
