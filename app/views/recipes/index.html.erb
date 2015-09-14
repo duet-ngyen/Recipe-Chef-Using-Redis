@@ -1,3 +1,6 @@
+<div style="margin-top: 50px"></div>
+<%= link_to "Recipe 1", new_recipe_path, class: "btn btn-primary" %>
+
 <h1>all chefs</h1>
 <% chefs = $redis.smembers("chefs") %>
 <table class="table table-hover table-striped">
@@ -7,10 +10,9 @@
     <th>Recipes</th>
   </tr>
   <% chefs.each do |chef| %>
-    <% name_chef =  $redis.hget(chef, "name") %>
     <% recipes_chef = $redis.smembers("#{chef}:recipes") %>
     <tr>
-      <td><%= name_chef %></td>
+      <td><%= $redis.hget(chef, "name") %></td>
       <td><%= $redis.hget(chef, "email") %></td>
       <td>
         <ul>

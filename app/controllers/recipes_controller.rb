@@ -1,4 +1,6 @@
-class BlogsController < ApplicationController
+class RecipesController < ApplicationController
+  before_action :load_recipe, except: [:index, :new]
+
   def index
     # Create chefs
     $redis.hmset("chef:nguyen", :name, "Nguyen Huynh", :email, "nguyen@gmail.com")
@@ -35,5 +37,21 @@ class BlogsController < ApplicationController
   end
 
   def new
+    $redis.hmset("recipe:test", :title, "test", :summary, "Demo Description")
+    $redis.sadd("recipes", "recipe:test")
+    redirect_to recipes_path
+  end
+
+  def create
+
+  end
+
+  private
+  def load_recipe
+    @recipe = Recipe.find_by params[:id]
+  end
+
+  def current_recipe
+
   end
 end
