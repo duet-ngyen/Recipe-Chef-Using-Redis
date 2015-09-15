@@ -15,7 +15,7 @@
   <% chefs.each do |chef| %>
     <% recipes_chef = $redis.smembers("#{chef}:recipes") %>
     <tr>
-      <td><%= $redis.hget(chef, "id") %></td>
+      <td><%= chef %></td>
       <td><%= $redis.hget(chef, "name") %></td>
       <td><%= $redis.hget(chef, "email") %></td>
       <td>
@@ -37,7 +37,6 @@
 <h1>All recipes</h1>
 <% recipes = $redis.smembers("recipes") %>
 
-
 <table class="table table-hover">
   <tr>
     <th>#</th>
@@ -45,8 +44,11 @@
     <th>Summary</th>
   </tr>
   <% recipes.each do |recipe| %>
+    <% /recipe\:(?<id>\d+)/ =~ recipe %>
+    <%= id %>
+
     <tr>
-      <td><%= link_to $redis.hget(recipe, "id"), recipe_path($redis.hget(recipe, "id")) %></td>
+      <td><%= link_to recipe, recipe_path(id) %></td>
       <td><%= $redis.hget(recipe, "title") %></td>
       <td><%= $redis.hget(recipe, "summary") %></td>
     </tr>

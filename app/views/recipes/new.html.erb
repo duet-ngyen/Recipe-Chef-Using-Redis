@@ -1,5 +1,7 @@
-<h1>New</h1>
-<%= link_to "create", {controller: "recipes", action: "create", method: "post"}, class: "btn btn-success" %>
+<h1></h1>
+<h1 style="text-align: center"><strong>Create new Recipe</strong></h1>
 <div class="pull-right">
   <strong>Visited:</strong><span class="tab-left btn btn-success"><%= @count %></span>
 </div>
+<div style="clear: both"></div>
+<%= render "form" %>

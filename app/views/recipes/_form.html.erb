@@ -1,1 +1,19 @@
-<%=  %>
+<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+  <%= form_for(@recipe) do |f| %>
+    <div>
+      <h3><%= f.label :title %></h3>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+    <div>
+      <h3><%= f.label :summary %></h3>
+      <%= f.text_field :summary, class: "form-control" %>
+    </div>
+
+    <h3></h3>
+
+    <div class="actions">
+      <%= f.submit "Submit", class: "btn btn-success btn-block btn-lg" %>
+    </div>
+  <% end %>
+</div>
